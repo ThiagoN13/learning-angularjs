@@ -1,0 +1,21 @@
+<div ng-if="formContato.nome.$touched" ng-messages="formContato.nome.$error">
+  <div class="alert alert-danger no-radius text-center" ng-message="required">
+    <p>Por favor, preencha o nome.</p>
+  </div>
+  <div class="alert alert-danger no-radius text-center" ng-message="minlength">
+    <p>O nome deve conter no minimo 5 letras</p>
+  </div>
+</div>
+<div ng-if="!formContato.nome.$invalid" ng-messages="formContato.telefone.$error">
+  <div class="alert alert-danger no-radius text-center" ng-message="required">
+    <p>Por favor, preencha o telefone</p>
+  </div>
+  <div class="alert alert-danger no-radius text-center" ng-message="pattern">
+    <p>Telefone inválido, por favor informe o telefone corretamente. Ex: 9999-8888</p>
+  </div>
+</div>
+<div ng-if="!formContato.telefone.$invalid" ng-messages="formContato.operadora.$error">
+  <div class="alert alert-danger no-radius text-center" ng-message="required">
+    <p>Por favor, selecione a operadora</p>
+  </div>
+</div>
