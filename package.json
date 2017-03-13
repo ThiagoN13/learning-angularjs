@@ -12,5 +12,9 @@
     "bootstrap"
   ],
   "author": "Diego Leal",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.2",
+    "express-load": "^1.1.15"
+  }
 }

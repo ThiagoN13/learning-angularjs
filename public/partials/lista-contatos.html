@@ -1,0 +1,47 @@
+<div class="main">
+  <!-- search -->
+  <div class="col-xs-5 col-xs-offset-7 search">
+    <input type="text" class="form-control" placeholder="Busca Inteligente" data-action="grow" ng-model="busca">
+  </div>
+  <!-- end for search -->
+  <div class="row">
+    <div class="col-xs-4">
+      <div class="form-group">
+        <button class="btn btn-primary btn-block no-radius" data-target="#formModal" data-toggle="modal">Adicionar Contato</button>
+      </div>
+    </div>
+    <div class="col-xs-4">
+      <div class="form-group">
+        <button type="button" class="btn btn-danger btn-block no-radius" ng-click="removerSelecionados(contatos, selecionarTodos)" ng-disabled="!isSelecionados(contatos)">Remover Selecionados</button>
+      </div>
+    </div>
+  </div>
+  <table class="table table-striped" ng-show="contatos.length > 0">
+    <thead>
+      <tr>
+        <th>
+          <input type="checkbox" class="checkbox" ng-model="selecionarTodos">
+        </th>
+        <th><a href="#" ng-click="ordenarPor('nome')">Nome</a></th>
+        <th class="text-center"><a href="#" ng-click="ordenarPor('telefone')">Telefone</a></th>
+        <th class="text-center"><a href="#" ng-click="ordenarPor('operadora')">Operadora</a></th>
+        <th class="text-center"><a href="#" ng-click="ordenarPor('data')">Atualizado em</a></th>
+        <th class="text-center">Remover</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="contato in contatos | filter: busca | orderBy: campo: reverso" ng-class="{'text-danger': contato.selecionado}">
+        <td>
+          <input type="checkbox" class="checkbox" ng-model="contato.selecionado">
+        </td>
+        <td>{{contato.nome}}</td>
+        <td class="text-center">{{contato.telefone}}</td>
+        <td class="text-center">{{contato.operadora}}</td>
+        <td class="text-center">{{contato.data | date: 'dd/MM/yyyy HH:mm'}}</td>
+        <td class="text-center">
+          <button type="button" class="btn btn-xs btn-danger" ng-click="removerContato($index)">&times;</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

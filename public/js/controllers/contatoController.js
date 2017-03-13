@@ -1,10 +1,8 @@
-angular.module('app', ['ngMessages']);
-
 angular.module('app')
-  .controller('listaContatos', listaContatos);
+  .controller('listaDeContatos', listaDeContatos);
 
-
-function listaContatos($scope) {
+// contoller para contatos
+function listaDeContatos($scope) {
   $scope.title = 'Lista Telefonica';
 
   $scope.contatos = [
