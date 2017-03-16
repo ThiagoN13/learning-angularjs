@@ -2,7 +2,7 @@ angular.module('app')
   .controller('listaDeContatos', listaDeContatos);
 
 // contoller para contatos
-function listaDeContatos($scope) {
+function listaDeContatos($scope, $state) {
   $scope.title = 'Lista Telefonica';
 
   $scope.contatos = [
@@ -48,4 +48,5 @@ function listaDeContatos($scope) {
     $scope.reverso = !$scope.reverso;
   };
 
+  // console.log($state);
 };

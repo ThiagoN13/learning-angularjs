@@ -1,13 +1,16 @@
-<div class="main">
-  <!-- search -->
+<!-- search -->
+<div class="row">
   <div class="col-xs-5 col-xs-offset-7 search">
     <input type="text" class="form-control" placeholder="Busca Inteligente" data-action="grow" ng-model="busca">
   </div>
-  <!-- end for search -->
+</div>
+<!-- end for search -->
+
+<div class="default-table">
   <div class="row">
     <div class="col-xs-4">
       <div class="form-group">
-        <button class="btn btn-primary btn-block no-radius" data-target="#formModal" data-toggle="modal">Adicionar Contato</button>
+        <a class="btn btn-primary btn-block no-radius" data-target="#formModal" data-toggle="modal" href="#!/contatos/form">Adicionar Contato</a>
       </div>
     </div>
     <div class="col-xs-4">
@@ -45,3 +48,6 @@
     </tbody>
   </table>
 </div>
+
+<!-- render modal for register contacts -->
+<div ui-view></div>
