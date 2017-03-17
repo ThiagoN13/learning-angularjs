@@ -1,5 +1,6 @@
 var express = require('express'),
-    load = require('express-load');
+    load = require('express-load'),
+    bodyParser = require('body-parser');
 
 module.exports = function() {
   var app = express();
@@ -13,8 +14,11 @@ module.exports = function() {
 
   // middleares
   app.use(express.static('./public'));
+  app.use(bodyParser.urlencoded({extended: true}));
+  app.use(bodyParser.json())
 
-  load('routers', {cwd: 'app'})
+  load('controllers', {cwd: 'app'})
+    .then('routers')
     .into(app);
 
   return app;

@@ -2,13 +2,34 @@ angular.module('app')
   .controller('listaDeContatos', listaDeContatos);
 
 // contoller para contatos
-function listaDeContatos($scope, $state) {
+function listaDeContatos($scope, $state, $location, $resource) {
   $scope.title = 'Lista Telefonica';
 
-  $scope.contatos = [
-    {nome: 'Jon', telefone: '9999-8888', operadora: 'WesterosPhone', data: new Date()},
-    {nome: 'Dany', telefone: '8888-7777', operadora: 'WesterosPhone', data: new Date()}
-  ];
+  //Evento para iniciar a rota com modal aberto
+  (function () {
+    $('#formModal').modal('show');
+  }());
+
+  // $('#myModal').on('hide.bs.modal', function() {
+  //   goBackRoute();
+  // });
+
+  $scope.goBackRoute = function() {
+    $location.path('#!/contatos');
+  };
+
+  $scope.contatos = [];
+
+  function buscarTodosContatos() {
+    var ContatosResource = $resource('/contatos');
+    ContatosResource.query(function(contatos) {
+      $scope.contatos = contatos;
+    });
+  };
+  //carga inicial
+  buscarTodosContatos();
+
+  $scope.$on('contato.reload', buscarTodosContatos);
 
   $scope.operadoras = [
     {nome: 'Oi', codigo: '11', categoria: 'Celular'},
@@ -19,17 +40,26 @@ function listaDeContatos($scope, $state) {
   ];
 
   $scope.adicionarContato = function(contato) {
+    var ContatosResource = $resource('/contatos/salvar');
+    var contatosResource = new ContatosResource();
     contato.data = new Date();
-    $scope.contatos.push(angular.copy(contato));
+    contatosResource.contato = angular.copy(contato);
+    contatosResource.$save();
     delete contato;
+    $scope.$emit('contato.reload');
+    $scope.goBackRoute();
   };
 
   $scope.removerContato = function(indice) {
-    $scope.contatos.splice(indice, 1);
+    var ContatosResource = $resource('/contatos/remover'),
+        contatosResource = new ContatosResource();
+
+    contatosResource.indiceContato = indice;
+    contatosResource.$save();
+    $scope.$emit('contato.reload');
   };
 
   $scope.removerSelecionados = function(contato, todos) {
-    console.debug('TODOS => ', todos);
     if(todos) $scope.contatos = [];
     else $scope.contatos = contato.filter(function(obj, index, arr) {
       return !obj.selecionado;

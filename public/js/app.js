@@ -1,1 +1,1 @@
-angular.module('app', ['ngMessages', 'ui.router']);
+angular.module('app', ['ngMessages', 'ui.router', 'ngResource']);
