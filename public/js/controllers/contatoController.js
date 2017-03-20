@@ -14,7 +14,7 @@ function _formContatos($scope, $state, $location, $resource) {
     $location.path('#!/contatos');
   };
 
-  if(!$state.params) {
+  if(!$state.params.indice) {
     $scope.salvarModal = function(contato) {
       var ContatosResource = $resource('/contatos/salvar');
       var contatosResource = new ContatosResource();
@@ -49,6 +49,8 @@ function _formContatos($scope, $state, $location, $resource) {
 // contoller para lista contatos
 function _listaDeContatos($scope, $state, $location, $resource) {
   $scope.title = 'Lista de Telefonica';
+    //armazena o 'ID' do contato que será excluido
+    var contatoId = 0;
 
   //array com a lista de contatos
   $scope.contatos = [];
@@ -72,17 +74,23 @@ function _listaDeContatos($scope, $state, $location, $resource) {
     {nome: 'Embratel', codigo: '21', categoria: 'Fixo'}
   ];
 
-
   $scope.removerContato = function(indice) {
-    var ContatosResource = $resource('/contatos/remover'),
-        contatosResource = new ContatosResource();
 
-    $scope.contatos.splice(indice, 1);
+    return function(indice) {
+      var ContatosResource = $resource('/contatos/remover'),
+          contatosResource = new ContatosResource();
+          console.log('CLOSURE ' +  indice);
 
-    contatosResource.contatos = $scope.contatos;
-    contatosResource.$save();
-    $scope.$emit('contato.reload');
+      $scope.contatos.splice(contatoId, 1);
+
+      contatosResource.contatos = $scope.contatos;
+      contatosResource.$save();
+      $scope.$emit('contato.reload');
+    };
   };
+
+  $scope.confirmarRemocao = $scope.removerContato(contatoId);
+
 
   $scope.selecionarTodos = function(contatos) {
     contatos.forEach(function(contato) {

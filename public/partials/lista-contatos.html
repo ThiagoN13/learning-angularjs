@@ -42,9 +42,9 @@
         <td class="text-center">{{contato.operadora}}</td>
         <td class="text-center">{{contato.data | date: 'dd/MM/yyyy HH:mm'}}</td>
         <td class="text-center">
-          <a class="btn btn-xs btn-default" ng-click="selecionarFavorito(contato)"><i class="glyphicon glyphicon-star-empty" ng-class="{'favorito': contato.isFavorito}"></i></a>
+          <a class="btn btn-xs btn-default" data-toggle="tooltip" title="Adicionar como favorito" ng-click="selecionarFavorito(contato)"><i class="glyphicon glyphicon-star-empty" ng-class="{'favorito': contato.isFavorito}"></i></a>
           <a class="btn btn-xs btn-default" href="#!/contatos/form/{{$index}}"><i class="glyphicon glyphicon-pencil"></i></a>
-          <a class="btn btn-xs btn-danger" ng-click="removerContato($index)"><i class="glyphicon glyphicon-remove"></i></a>
+          <a class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modal-alert" ng-click="removerContato($index)"><i class="glyphicon glyphicon-remove"></i></a>
         </td>
       </tr>
     </tbody>
@@ -53,3 +53,7 @@
 
 <!-- render modal for register contacts -->
 <div ui-view></div>
+<div ui-view="alert-modal"></div>
+
+<!-- UX scripts -->
+<script src="../js/ux/scripts.js" charset="utf-8"></script>

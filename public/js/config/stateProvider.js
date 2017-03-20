@@ -5,8 +5,16 @@ angular.module('app')
     $stateProvider
       .state('contatos', {
         url: '/contatos',
-        templateUrl: '../../partials/lista-contatos.html',
-        controller: 'listaDeContatos'
+        views: {
+          '': {
+            templateUrl: '../../partials/lista-contatos.html',
+            controller: 'listaDeContatos'
+          },
+          'alert-modal@contatos': {
+            templateUrl: '../../partials/modal-alert.html',
+            controller: 'listaDeContatos'
+          }
+        }
       })
       .state('contatos.form', {
         url: '/form/:indice',
