@@ -9,8 +9,17 @@ angular.module('app')
         controller: 'listaDeContatos'
       })
       .state('contatos.form', {
-        url: '/form',
-        templateUrl: '../../partials/form-contatos.html',
-        controller: 'listaDeContatos'
+        url: '/form/:indice',
+        views: {
+          '': {
+            templateUrl: '../../partials/form-contatos.html',
+            controller: 'formContatos'
+          },
+
+          'alert-messages@contatos.form': {
+            templateUrl: '../../partials/error-messages.html',
+            controller: 'formContatos'
+          }
+        }
       });
   }]);
