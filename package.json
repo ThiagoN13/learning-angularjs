@@ -14,8 +14,8 @@
   "author": "Diego Leal",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.17.1",
-    "express": "^4.15.2",
-    "express-load": "^1.1.15"
+    "body-parser": "1.17.x",
+    "express": "4.15.x",
+    "express-load": "1.1.x"
   }
 }
