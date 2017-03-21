@@ -74,24 +74,6 @@ function _listaDeContatos($scope, $state, $location, $resource) {
     {nome: 'Embratel', codigo: '21', categoria: 'Fixo'}
   ];
 
-  $scope.removerContato = function(indice) {
-
-    return function(indice) {
-      var ContatosResource = $resource('/contatos/remover'),
-          contatosResource = new ContatosResource();
-          console.log('CLOSURE ' +  indice);
-
-      $scope.contatos.splice(contatoId, 1);
-
-      contatosResource.contatos = $scope.contatos;
-      contatosResource.$save();
-      $scope.$emit('contato.reload');
-    };
-  };
-
-  $scope.confirmarRemocao = $scope.removerContato(contatoId);
-
-
   $scope.selecionarTodos = function(contatos) {
     contatos.forEach(function(contato) {
       contato.selecionado = !contato.selecionado;
@@ -121,6 +103,14 @@ function _listaDeContatos($scope, $state, $location, $resource) {
       return obj.selecionado;
     });
     return isSelecionados;
+  };
+
+  $scope.removerContato = function(contato, indice) {
+    contato.selecionado = true;
+    console.log(contato);
+
+    $scope.removerSelecionados([contato]);
+    // $scope.$emit('contato.reload');
   };
 
   $scope.ordenarPor = function(nomeDoCampo) {
