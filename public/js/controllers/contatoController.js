@@ -40,8 +40,8 @@ function _formContatos($scope, $state, $location, $resource) {
       $scope.contatos.splice(contatoIndice, 1, $scope.contato);
       contatosResource.contatos = $scope.contatos;
       contatosResource.$save();
-      $scope.$emit('contato.reload');
       $scope.goBackRoute();
+      $scope.$emit('contato.reload');
     };
   }
 };
@@ -49,22 +49,6 @@ function _formContatos($scope, $state, $location, $resource) {
 // contoller para lista contatos
 function _listaDeContatos($scope, $state, $location, $resource) {
   $scope.title = 'Lista de Telefonica';
-    //armazena o 'ID' do contato que será excluido
-    var contatoId = 0;
-
-  //array com a lista de contatos
-  $scope.contatos = [];
-
-  function buscarTodosContatos() {
-    var ContatosResource = $resource('/contatos');
-    ContatosResource.query(function(contatos) {
-      $scope.contatos = contatos;
-    });
-  };
-  //carga inicial
-  buscarTodosContatos();
-
-  $scope.$on('contato.reload', buscarTodosContatos);
 
   $scope.operadoras = [
     {nome: 'Oi', codigo: '11', categoria: 'Celular'},
@@ -76,7 +60,8 @@ function _listaDeContatos($scope, $state, $location, $resource) {
 
   $scope.selecionarTodos = function(contatos) {
     contatos.forEach(function(contato) {
-      contato.selecionado = !contato.selecionado;
+      if($scope.contatosToggle) contato.selecionado = true;
+      else contato.selecionado = false;
     });
   };
 
@@ -94,23 +79,22 @@ function _listaDeContatos($scope, $state, $location, $resource) {
 
       contatosResource.contatos = $scope.contatos;
       contatosResource.$save();
+      $scope.$emit('contato.reload');
     }
 
   };
 
-  $scope.isSelecionados = function(contato) {
-    var isSelecionados =  contato.some(function(obj) {
-      return obj.selecionado;
-    });
-    return isSelecionados;
+  $scope.selecionarContato = function(contato) {
+    contato.selecionado = true;
   };
 
-  $scope.removerContato = function(contato, indice) {
-    contato.selecionado = true;
-    console.log(contato);
-
-    $scope.removerSelecionados([contato]);
-    // $scope.$emit('contato.reload');
+  $scope.desselecionarContatos = function(contatos) {
+    $scope.contatosToggle = false;
+    contatos.forEach(function(contato) {
+      if(contato.selecionado) {
+        contato.selecionado = false;
+      }
+    });
   };
 
   $scope.ordenarPor = function(nomeDoCampo) {
@@ -123,11 +107,7 @@ function _listaDeContatos($scope, $state, $location, $resource) {
     var contatosResource = new ContatosResource();
 
     contato.isFavorito = !contato.isFavorito;
-    console.log($scope.contatos);
     contatosResource.contatos = angular.copy($scope.contatos);
     contatosResource.$save();
-    $scope.$emit('contato.reload');
   };
-
-  // console.log($state);
 };
