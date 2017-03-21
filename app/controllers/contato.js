@@ -1,8 +1,8 @@
 module.exports = function(app) {
 
   var listaDeContatos = [
-    {nome: 'Jon', telefone: '9999-8888', operadora: 'WesterosPhone', data: new Date()},
-    {nome: 'Dany', telefone: '8888-7777', operadora: 'WesterosPhone', data: new Date()}
+    {nome: 'Jon', telefone: '9999-8888', operadora: 'WesterosPhone', data: new Date(), selecionado: false, isFavorito: true},
+    {nome: 'Dany', telefone: '8888-7777', operadora: 'WesterosPhone', data: new Date(), selecionado: false, isFavorito: true}
   ];
 
   function _buscarTodosContatos(req, res, next) {
