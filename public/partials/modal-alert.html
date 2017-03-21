@@ -1,17 +1,21 @@
 <div class="modal fade" id="modal-alert">
   <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        Alerta
-      </div>
+    <div class="modal-content no-radius modal-xs">
       <div class="modal-body">
-        <div>
-          Você relmente deseja excluir este contato?
+        <div class="alert alert-danger">
+          <h1 class="text-center">Atenção!</h1>
+          <p class="text-center">Você realmente deseja excluir &lt;nome do contato&gt;?</p>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger pull-right" ng-click="confirmarRemocao()" data-dismiss="modal">Excluir</button>
-        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancelar</button>
+        <div class="row">
+          <div class="col-xs-8 col-xs-offset-4">
+            <div class="form-group">
+              <button type="button" class="btn btn-default no-radius" data-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-danger no-radius" ng-click="console.log('contatos')" data-dismiss="modal">Confirmar</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
