@@ -1,0 +1,44 @@
+{
+    "env": {
+        "browser": true,
+        "jquery": true,
+        "node": true
+    },
+    "extends": ["angular", "eslint:recommended"],
+    "plugins": [
+      "angular"
+    ],
+    "rules": {
+        "indent": [
+            "error",
+            2
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "no-console": [
+          "error",
+          {
+            "allow": [
+              "log",
+              "error",
+              "info"
+            ]
+          }
+        ],
+        "angular/log": 0
+    },
+    "globals": {
+      "describe": true,
+      "it": true
+    }
+}
