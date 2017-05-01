@@ -1,0 +1,64 @@
+<!-- modal do formulario -->
+<div class="modal" id="formModal">
+  <div class="modal-dialog">
+    <div class="modal-content no-radius">
+      <div class="modal-header">
+        <span class="close" ng-click="viewModel.fecharModal(viewModel.rotaAnterior)">&times;</span>
+        <h3 class="modal-title text-center" ng-bind="viewModel.title"></h3>
+      </div>
+      <!-- fim do modal header -->
+      <div class="modal-body">
+        <div class="row" style="margin-bottom: 30px; ">
+          <div class="col-xs-6 col-xs-offset-3">
+            <form name="formContato" >
+              <div class="form-group">
+                <input type="text" name="nome" class="form-control no-radius" placeholder="Nome" ng-model="viewModel.contato.nome" ng-required="true" ng-minlength="3">
+              </div>
+              <div class="form-group">
+                <input type="text" name="telefone" class="form-control no-radius" placeholder="Telefone" ng-model="viewModel.contato.telefone" ng-required="true" ng-pattern="/^\d{4,5}-\d{4}$/">
+              </div>
+              <div class="form-group">
+                <select name="operadora" class="form-control no-radius" ng-model="viewModel.contato.operadora" ng-options="operadora.nome as operadora.nome group by operadora.categoria for operadora in viewModel.operadoras | orderBy: 'nome'" ng-required="true">
+                  <option value="">{{contato.operadora || 'Selecione uma operadora.'}}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <button type="button" name="salvarContato" class="btn btn-primary btn-block no-radius" ng-disabled="formContato.$invalid" ng-click="viewModel.salvarContato(viewModel.contato)">Salvar Contato</button>
+              </div>
+            </form>
+
+            <!-- messagens com alerta de error -->
+            <!-- <div ng-if="formContato.nome.$touched" ng-messages="formContato.nome.$error">
+              <div class="alert alert-danger no-radius text-center" ng-message="required">
+                <p>Por favor, preencha o nome.</p>
+              </div>
+              <div class="alert alert-danger no-radius text-center" ng-message="minlength">
+                <p>O nome deve conter no minimo 3 letras</p>
+              </div>
+            </div>
+            <div ng-if="!formContato.nome.$invalid && formContato.telefone.$touched" ng-messages="formContato.telefone.$error">
+              <div class="alert alert-danger no-radius text-center" ng-show="formContato.telefone.$touched" ng-message="required">
+                <p>Por favor, preencha o telefone</p>
+              </div>
+              <div class="alert alert-danger no-radius text-center" ng-message="pattern" ng-if="formContato.telefone.$touched">
+                <p>Telefone inválido, por favor informe o telefone corretamente. Ex: 9999-8888</p>
+              </div>
+            </div>
+            <div ng-if="!formContato.telefone.$invalid && formContato.telefone.$touched" ng-messages="formContato.operadora.$error">
+              <div class="alert alert-danger no-radius text-center" ng-message="required">
+                <p>Por favor, selecione a operadora</p>
+              </div>
+            </div> -->
+            <!-- fim dos alertas de error -->
+
+          </div>
+        </div>
+        <!-- fim da linha do form -->
+      </div>
+      <!-- fim do modal body -->
+    </div>
+    <!-- fim do modal content -->
+  </div>
+  <!-- fim do modal dialog -->
+</div>
+<!-- fim do modal -->
