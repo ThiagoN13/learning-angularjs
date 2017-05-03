@@ -1,34 +1,32 @@
-module.exports = function() {
+module.exports = function( app ) {
+  var Schema = app.models.contato,
+    contact = require( '../lib/mongoose' )( Schema );
 
-  var listaDeContatos = [
-    {nome: 'Jon', telefone: '9999-8888', operadora: 'WesterosPhone', data: new Date(), selecionado: false, isFavorito: true},
-    {nome: 'Dany', telefone: '8888-7777', operadora: 'WesterosPhone', data: new Date(), selecionado: false, isFavorito: true}
-  ];
+  function _save( req, res ) {
 
-  function _buscarTodosContatos(req, res) {
-    res.json(listaDeContatos);
-  }
+    var doc = {
+      name: 'Teste',
+      phones: [{
+        number: '7199188-9528',
+        phoneOperator: 'Tim'
+      }],
+      email: 'leal.banks@gmail.com',
+      lastUpdate: new Date()
+    };
 
-  function _salvarContatos(req) {
-    var doc = req.body.contato;
-    listaDeContatos.push(doc);
-  }
+    contact.save( doc )
+      .then(function( id ) {
+        console.log( id );
+        // res.json( res );
+      })
+      .catch(function( err ) {
+        res.status( 500 ).json( err );
+      });
 
-  function _editarContatos(req) {
-    var contatos = req.body.contatos;
 
-    listaDeContatos = contatos;
-  }
-
-  function _removerContatos(req) {
-    var newContatos = req.body.contatos;
-    listaDeContatos = newContatos;
   }
 
   return {
-    buscarTodosContatos: _buscarTodosContatos,
-    salvarContatos: _salvarContatos,
-    editarContatos: _editarContatos,
-    removerContatos: _removerContatos
+    save: _save
   };
 };
