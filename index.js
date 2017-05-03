@@ -1,5 +1,6 @@
-var app = require('./config/express.js')();
+var app = require( './config/express' ),
+  PORT = app.get( 'port' ) || 3000;
 
-app.listen(app.get('port'), function() {
-  console.log('server on | port: ' + app.get('port'));
+app.listen( PORT, function() {
+  console.log( 'server on | port: ' + PORT );
 });
