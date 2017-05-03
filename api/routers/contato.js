@@ -1,8 +1,6 @@
-module.exports = function(app) {
-  var contatoController = app.controllers.contato;
+module.exports = function( app ) {
+  var contactController = app.controllers.contato;
 
-  app.get('/contatos', contatoController.buscarTodosContatos);
-  app.post('/contatos/salvar', contatoController.salvarContatos);
-  app.post('/contatos/remover', contatoController.removerContatos);
-  app.post('/contatos/editar', contatoController.editarContatos);
+  app.get( '/contact/save', contactController.save );
+
 };
