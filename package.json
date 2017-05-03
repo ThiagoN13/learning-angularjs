@@ -20,6 +20,7 @@
     "body-parser": "1.17.x",
     "express": "4.15.x",
     "express-load": "1.1.x",
+    "merge": "^1.2.0",
     "mongoose": "^4.9.7",
     "q": "^1.5.0"
   }
