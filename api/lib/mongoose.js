@@ -1,30 +1,38 @@
 var q = require( 'q' ),
   mongoose = require( 'mongoose' ),
+  merge = require( 'merge' ),
   ObjectId = mongoose.Types.ObjectId;
 
 module.exports = function( Schema ) {
 
   function _save( doc ) {
     var dfd = q.defer(),
-      schema = new Schema( doc );
+      schema;
 
     if ( !doc._id ) {
       doc._id = new ObjectId();
+      schema = new Schema( doc );
     }
 
-    schema.save(function( err ) {
-      if ( err ) {
-        dfd.reject( err );
-      } else {
-        Schema.findOne({_id: doc._id}, function( err, newDoc ) {
+    Schema.findOne( { _id: doc._id, active: true }, function( err, res ) {
+      if ( res ) {
+        merge( res, doc );
+        res.save(function( err ) {
           if ( err ) {
             dfd.reject( err );
           } else {
-            dfd.resolve(newDoc);
+            dfd.resolve( res );
+          }
+        });
+      } else {
+        schema.save(function( err ) {
+          if ( err ) {
+            dfd.reject( err );
+          } else {
+            dfd.resolve( res );
           }
         });
       }
-
     });
 
     return dfd.promise;
