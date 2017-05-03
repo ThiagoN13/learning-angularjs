@@ -13,7 +13,10 @@ module.exports = function() {
     phones: [{
       number: {
         type: String,
-        required: true
+        required: true,
+        index: {
+          unique: true
+        }
       },
       phoneOperator: {
         type: String,
@@ -22,7 +25,10 @@ module.exports = function() {
     }],
     email: {
       type: String,
-      required: true
+      required: true,
+      index: {
+        unique: true
+      }
     },
     active: {
       type: Boolean,
@@ -33,10 +39,14 @@ module.exports = function() {
       default: Date.now
     },
     lastUpdate: {
-      type: Date,
-      required: true
+      type: Date
     }
   }, {collection: collectionName});
+
+  schema.pre( 'save', function( next ) {
+    this.lastUpdate = new Date();
+    next();
+  });
 
   return mongoose.model( collectionName, schema );
 
