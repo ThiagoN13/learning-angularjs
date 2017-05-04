@@ -1,7 +1,7 @@
 var that = require( '../that' ),
   assert = require ( 'assert' );
 
-describe( 'Simple test for lib that', function() {
+describe( 'Simple test for methods the validations', function() {
   it( 'Testing method isObject. Should return true.', function() {
     assert( that.isObject({}) );
   });
@@ -33,8 +33,16 @@ describe( 'Simple test for lib that', function() {
     assert( that.isNotEmpty([ true ]), 'isNotEmpty for Array fail ;(' );
     assert( that.isNotEmpty( 'Anything' ), 'isNotEmpty for other types fail ;(' );
   });
+});
 
-  it( 'Testing method hasDeepProperty. Should return true.', function() {
+
+describe( 'Simple test for method the objects', function() {
+  it( 'Testing method copy.', function() {
+    var clone = {};
+    that.copy(clone, { test: true });
+    assert.equal( clone.test , true, 'Testing for method copy fail.' );
+  });
+    it( 'Testing method hasDeepProperty. Should return true.', function() {
    assert( that.hasDeepProperty({ nome: 'teste' }, 'nome'), 'hasDeepProperty do not have the property' );
  });
 
@@ -45,6 +53,5 @@ describe( 'Simple test for lib that', function() {
    assert( that.isEqual( obj.number , 12345 ), 'isEqual The reported property does not have this value' );
    assert( that.isEqual( 'teste' , 'teste' ), 'isEqual The sent string is not the same' );
    assert( that.isEqual( 12345 , 12345 ), 'isEqual The number sent is not the same' );
- })
-
+ });
 });
