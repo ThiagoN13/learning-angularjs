@@ -1,7 +1,7 @@
 var that = require( '../that' ),
   assert = require ( 'assert' );
 
-describe( 'Simple test for lib that', function() {
+describe( 'Simple test for methods the validations', function() {
   it( 'Testing method isObject. Should return true.', function() {
     assert( that.isObject({}) );
   });
@@ -33,5 +33,12 @@ describe( 'Simple test for lib that', function() {
     assert( that.isNotEmpty([ true ]), 'isNotEmpty for Array fail ;(' );
     assert( that.isNotEmpty( 'Anything' ), 'isNotEmpty for other types fail ;(' );
   });
+});
 
+describe( 'Simple test for method the objects', function() {
+  it( 'Testing method copy.', function() {
+    var clone = {};
+    that.copy(clone, { test: true });
+    assert.equal( clone.test , true, 'Testing for method copy fail.' );
+  });
 });
