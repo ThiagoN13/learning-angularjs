@@ -35,7 +35,8 @@
             ]
           }
         ],
-        "angular/log": 0
+        "angular/log": 0,
+        "angular/typecheck-object": 0
     },
     "globals": {
       "describe": true,
