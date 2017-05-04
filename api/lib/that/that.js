@@ -72,11 +72,8 @@
     function _copy( dist, src ) {
       if ( _isObject( dist ) && _isObject( src ) ) {
         for ( var property in src ) {
-          if ( src.hasOwnProperty( property ) ) {
-
-            dist[ property ] = src[ property ];
-
-          }
+          if ( !src.hasOwnProperty( property ) ) continue;
+          dist[ property ] = src[ property ];
         }
       }
     }
