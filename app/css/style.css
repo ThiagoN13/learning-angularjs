@@ -8,3 +8,84 @@
 .modal-alert {width: 40%;}
 .modal-alert p {font-size: 13pt;}
 .favorito {color: #FFD700;}
+
+
+#chat {
+    display: none;
+    background-color: #ccc;
+    position:fixed;
+  	bottom:36px;
+  	left:0;
+  	width:250px;
+    height: 42%;
+    overflow-y: auto;
+}
+
+#chat-hide-header {
+  display: none;
+  position: fixed;
+  top: 95%;
+  padding-top: 20px;
+  width:250px;
+  padding-right: 180px;
+  background-color: #6495ED;
+}
+
+.chat-hide-title {
+  position: fixed;
+  bottom: -3px;
+}
+
+.chat-hide-close {
+  position: relative;
+  left: 30%;
+  bottom: 15px;
+}
+
+.chat-header {
+  position: fixed;
+  padding-top: 10px;
+  padding-right: 180px;
+  background-color: #6495ED;
+}
+
+.chat-title {
+  padding: 0;
+}
+
+.chat-close {
+  position: absolute;
+  left: 90%;
+  bottom: 5px;
+}
+
+.chat-body {
+  padding-top: 43px;
+}
+
+.chat-to-message {
+  background-color: #0080ff;
+  border-radius: 10px;
+  padding: 7px;
+}
+
+.chat-for-message {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 7px;
+}
+
+.chat-footer {
+  position: fixed;
+  top: 95%;
+  padding-right: 18.3%;
+}
+
+.send-message {
+  position: absolute;
+  margin-left: 84%;
+}
+
+.chat-input {
+  position: absolute;
+}
