@@ -1,48 +1,28 @@
 (function() {
-  var isNode =  (module || typeof module === 'object') && (module.exports || typeof module.exports === 'object');
+  var isNode =  ( typeof module === 'object' && module ) && ( typeof module.exports === 'object' && module.exports );
 
   var That = (function () {
     var objectPrototype = Object.prototype,
       toString = objectPrototype.toString;
 
     function _isObject( arg ) {
-      if ( toString.call( arg ) === '[object Object]' ) {
-        return true;
-      }
-
-      return false;
+      return toString.call( arg ) === '[object Object]';
     }
 
     function _isArray( arg ) {
-      if ( toString.call( arg ) === '[object Array]' ) {
-        return true;
-      }
-
-      return false;
+      return toString.call( arg ) === '[object Array]';
     }
 
     function _isString( arg ) {
-      if ( toString.call( arg ) === '[object String]' ) {
-        return true;
-      }
-
-      return false;
+      return toString.call( arg ) === '[object String]';
     }
 
     function _isNumber( arg ) {
-      if ( toString.call( arg ) === '[object Number]' ) {
-        return true;
-      }
-
-      return false;
+      return toString.call( arg ) === '[object Number]';
     }
 
     function _isBool( arg ) {
-      if ( toString.call( arg ) === '[object Boolean]' ) {
-        return true;
-      }
-
-      return false;
+      return toString.call( arg ) === '[object Boolean]';
     }
 
     function _isEmpty( arg ) {
@@ -67,10 +47,39 @@
       return false;
     }
 
-    // function _isExist( arg ) {
-    //
-    // }
+    function _isNotEmpty( arg ) {
+      var isTrue;
+      if ( !arg ) {
 
+        return false;
+
+      } else if ( _isObject(arg) ) {
+        for ( var property in arg ) {
+          isTrue = true;
+        }
+        return isTrue;
+      } else if ( _isArray( arg ) ) {
+        if ( arg.length <= 0 ) {
+
+          return false;
+
+        }
+      }
+
+      return true;
+    }
+
+    function _copy( dist, src ) {
+      if ( _isObject( dist ) && _isObject( src ) ) {
+        for ( var property in src ) {
+          if ( src.hasOwnProperty( property ) ) {
+
+            dist[ property ] = src[ property ];
+
+          }
+        }
+      }
+    }
 
     return {
       isObject: _isObject,
@@ -78,14 +87,16 @@
       isNumber: _isNumber,
       isString: _isString,
       isBool: _isBool,
-      isEmpty: _isEmpty
+      isEmpty: _isEmpty,
+      isNotEmpty: _isNotEmpty,
+      copy: _copy
     };
   })();
 
   if ( isNode ) {
     module.exports = That;
   } else {
-    window['that'] = That;
+    window[ 'that' ] = That;
   }
 
 })();
