@@ -34,4 +34,17 @@ describe( 'Simple test for lib that', function() {
     assert( that.isNotEmpty( 'Anything' ), 'isNotEmpty for other types fail ;(' );
   });
 
+  it( 'Testing method hasDeepProperty. Should return true.', function() {
+   assert( that.hasDeepProperty({ nome: 'teste' }, 'nome'), 'hasDeepProperty do not have the property' );
+ });
+
+ it( 'Testing method isEqual. Should return true', function() {
+   var obj = { string: 'teste', number: 12345 };
+   assert( that.isEqual( obj , 'teste' ), 'isEqual No property has this value' );
+   assert( that.isEqual( obj.string , 'teste' ), 'isEqual The reported property does not have this value' );
+   assert( that.isEqual( obj.number , 12345 ), 'isEqual The reported property does not have this value' );
+   assert( that.isEqual( 'teste' , 'teste' ), 'isEqual The sent string is not the same' );
+   assert( that.isEqual( 12345 , 12345 ), 'isEqual The number sent is not the same' );
+ })
+
 });

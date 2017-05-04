@@ -26,16 +26,15 @@
     }
 
     function _isEmpty( arg ) {
-      var isTrue = true;
       if ( !arg ) {
 
         return true;
 
       } else if ( _isObject(arg) ) {
         for ( var property in arg ) {
-          isTrue = false;
+          return false;
         }
-        return isTrue;
+        return true;
       } else if ( _isArray( arg ) ) {
         if ( arg.length <= 0 ) {
 
@@ -48,16 +47,14 @@
     }
 
     function _isNotEmpty( arg ) {
-      var isTrue;
       if ( !arg ) {
 
         return false;
 
       } else if ( _isObject(arg) ) {
         for ( var property in arg ) {
-          isTrue = true;
+          return true;
         }
-        return isTrue;
       } else if ( _isArray( arg ) ) {
         if ( arg.length <= 0 ) {
 
@@ -67,6 +64,20 @@
       }
 
       return true;
+    }
+
+    function _isEqual( arg, valueToCompare ){
+      for ( var property in arg ) {
+        if ( _isObject ( arg ) && arg[ property ] === valueToCompare ) {
+          return true;
+        }
+      }
+
+      if ( arg === valueToCompare ) {
+        return true;
+      }
+
+      return false;
     }
 
     function _copy( dist, src ) {
@@ -81,6 +92,27 @@
       }
     }
 
+    /**
+    *Does the property search, returns true if the object has the property sent
+    */
+    function _hasDeepProperty( arg, property ){
+      if ( _isString( property ) ) {
+        if ( _isObject( arg ) ) {
+          for ( var ownership in arg ) {
+            if ( ownership === property ) {
+
+              return true;
+
+            }
+          }
+        }
+      }
+
+      return false;
+    }
+
+
+
     return {
       isObject: _isObject,
       isArray: _isArray,
@@ -89,7 +121,9 @@
       isBool: _isBool,
       isEmpty: _isEmpty,
       isNotEmpty: _isNotEmpty,
-      copy: _copy
+      isEqual: _isEqual,
+      copy: _copy,
+      hasDeepProperty: _hasDeepProperty
     };
   })();
 
