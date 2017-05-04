@@ -28,4 +28,10 @@ describe( 'Simple test for lib that', function() {
     assert.equal( that.isEmpty(), true, 'isEmpty for other types fail ;(' );
   });
 
+  it( 'Testing method isNotEmpty. Should return true.', function() {
+    assert( that.isNotEmpty({ isEmpty: false }), 'isNotEmpty for Object fail ;(' );
+    assert( that.isNotEmpty([ true ]), 'isNotEmpty for Array fail ;(' );
+    assert( that.isNotEmpty( 'Anything' ), 'isNotEmpty for other types fail ;(' );
+  });
+
 });
