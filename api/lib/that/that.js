@@ -66,15 +66,30 @@
       return true;
     }
 
-    function _isEqual( arg, valueToCompare ){
+    function _isBool( arg ) {
+      return toString.call( arg ) === '[object Boolean]';
+    }
+
+    function _isEqual( arg, valueToCompare ) {
       for ( var property in arg ) {
-        if ( _isObject ( arg ) && arg[ property ] === valueToCompare ) {
+        if ( _isObject( arg ) && arg[ property ] === valueToCompare ) {
           return true;
         }
       }
+      if ( _isArray )
 
-      if ( arg === valueToCompare ) {
-        return true;
+      return arg === valueToCompare;
+    }
+
+    function _hasEqual ( arg, value ) {
+      if ( _isArray( arg ) && _isArray( value )) {
+        for( var index = 0; index < arg.length ; index++) {
+          for ( var indicator = 0; indicator < value.length; indicator++) {
+            if ( arg[ index ] === value[ indicator ] ) {
+              return true;
+            }
+          }
+        }
       }
 
       return false;
@@ -120,7 +135,8 @@
       isNotEmpty: _isNotEmpty,
       isEqual: _isEqual,
       copy: _copy,
-      hasDeepProperty: _hasDeepProperty
+      hasDeepProperty: _hasDeepProperty,
+      hasEqual: _hasEqual
     };
   })();
 

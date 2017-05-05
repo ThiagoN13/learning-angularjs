@@ -33,6 +33,10 @@ describe( 'Simple test for methods the validations', function() {
     assert( that.isNotEmpty([ true ]), 'isNotEmpty for Array fail ;(' );
     assert( that.isNotEmpty( 'Anything' ), 'isNotEmpty for other types fail ;(' );
   });
+
+  it( 'Testing method hasEqual. Should return true.', function() {
+    assert( that.hasEqual([1, 2, 3], [3, 2]), 'hasEqual It has any no equal value.' );
+  });
 });
 
 
