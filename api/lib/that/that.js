@@ -76,7 +76,6 @@
           return true;
         }
       }
-      if ( _isArray )
 
       return arg === valueToCompare;
     }
@@ -103,16 +102,18 @@
       return false;
     }
 
-    function _findValue( where, value ) {
-      if ( _isArray( where ) ) {
-        for ( var index in where ) {
-          if ( where[ index ] == value) {
-            return true;
+    function _findValue( where, value, options ) {
+      if ( _isObject( where ) ) {
+        for ( var property in where ) {
+          if ( _isArray( value ) && _hasEqual(  where[ property ], value, options ) ) {
+            return value;
+          } else if ( where[ property ] === value) {
+            return value;
           }
         }
       }
 
-      return false;
+      return undefined;
     }
 
     function _copy( dist, src ) {

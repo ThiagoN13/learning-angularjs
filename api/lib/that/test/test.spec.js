@@ -42,11 +42,6 @@ describe( 'Simple test for method the arrays', function() {
     assert( that.hasEqual(['car', 'ball', 'money'], ['money', 'ball', 'car'], 'all'), 'hasEqual All values ​​must be equal.' );
     assert( that.hasEqual([1, 2, 3], [3], 'any'), 'hasEqual Must have only a few values ​​equal.' );
   });
-
-  it( 'Testing method FindValue. Should return true.', function() {
-    assert( that.findValue([1, 2, 3], 1), 'FindValue The array does not have the value reported');
-    assert( that.findValue(['Jhon', 'Richard', 'Henry'], 'Richard'), 'FindValue The array does not have the value reported');
-  });
 });
 
 
@@ -68,5 +63,13 @@ describe( 'Simple test for method the objects', function() {
     assert( that.isEqual( obj.number , 12345 ), 'isEqual The reported property does not have this value' );
     assert( that.isEqual( 'teste' , 'teste' ), 'isEqual The sent string is not the same' );
     assert( that.isEqual( 12345 , 12345 ), 'isEqual The number sent is not the same' );
+  });
+
+  it( 'Testing method FindValue. Should return true.', function() {
+    assert( that.findValue({ number: 1 }, 1), 'FindValue The array does not have the value reported');
+    assert( that.findValue({ string1: 'Jhon', string2: 'Richard'}, 'Richard'), 'FindValue The object does not have the value reported');
+    assert( that.findValue({ array: [1, 2, 3] }, [3, 2, 1]), 'FindValue The informed array does not contain object');
+    assert( that.findValue({ array: [1, 2, 3] }, [3, 2, 1], 'all'), 'FindValue The object does not have the array informed');
+    assert( that.findValue({ array: [1, 2, 3] }, [3], 'any'), 'FindValue The object does not have the array informed');
   });
 });
