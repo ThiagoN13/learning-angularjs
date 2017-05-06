@@ -81,13 +81,33 @@
       return arg === valueToCompare;
     }
 
-    function _hasEqual ( arg, value ) {
+    function _hasEqual ( arg, value, options ) {
+      options = options || 'all';
+      var count = 0;
+
       if ( _isArray( arg ) && _isArray( value )) {
         for( var index = 0; index < arg.length ; index++) {
           for ( var indicator = 0; indicator < value.length; indicator++) {
             if ( arg[ index ] === value[ indicator ] ) {
-              return true;
+              count++;
             }
+          }
+        }
+        if ( count === value.length && options === 'all' ){
+          return true;
+        } else if ( count > 0 && options === 'any' ) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    function _findValue( where, value ) {
+      if ( _isArray( where ) ) {
+        for ( var index in where ) {
+          if ( where[ index ] == value) {
+            return true;
           }
         }
       }
@@ -108,14 +128,10 @@
     *Does the property search, returns true if the object has the property sent
     */
     function _hasDeepProperty( arg, property ){
-      if ( _isString( property ) ) {
-        if ( _isObject( arg ) ) {
-          for ( var ownership in arg ) {
-            if ( ownership === property ) {
-
-              return true;
-
-            }
+      if ( _isString( property ) && _isObject( arg ) ) {
+        for ( var ownership in arg ) {
+          if ( ownership === property ) {
+            return true;
           }
         }
       }
@@ -134,6 +150,7 @@
       isEmpty: _isEmpty,
       isNotEmpty: _isNotEmpty,
       isEqual: _isEqual,
+      findValue: _findValue,
       copy: _copy,
       hasDeepProperty: _hasDeepProperty,
       hasEqual: _hasEqual
