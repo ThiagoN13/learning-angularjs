@@ -66,28 +66,61 @@
       return true;
     }
 
-    function _isEqual( arg, valueToCompare ){
+    function _isBool( arg ) {
+      return toString.call( arg ) === '[object Boolean]';
+    }
+
+    function _isEqual( arg, valueToCompare ) {
       for ( var property in arg ) {
-        if ( _isObject ( arg ) && arg[ property ] === valueToCompare ) {
+        if ( _isObject( arg ) && arg[ property ] === valueToCompare ) {
           return true;
         }
       }
 
-      if ( arg === valueToCompare ) {
-        return true;
+      return arg === valueToCompare;
+    }
+
+    function _hasEqual ( arg, value, options ) {
+      options = options || 'all';
+      var count = 0;
+
+      if ( _isArray( arg ) && _isArray( value )) {
+        for( var index = 0; index < arg.length ; index++) {
+          for ( var indicator = 0; indicator < value.length; indicator++) {
+            if ( arg[ index ] === value[ indicator ] ) {
+              count++;
+            }
+          }
+        }
+        if ( count === value.length && options === 'all' ){
+          return true;
+        } else if ( count > 0 && options === 'any' ) {
+          return true;
+        }
       }
 
       return false;
     }
 
+    function _findValue( where, value, options ) {
+      if ( _isObject( where ) ) {
+        for ( var property in where ) {
+          if ( _isArray( value ) && _hasEqual(  where[ property ], value, options ) ) {
+            return value;
+          } else if ( where[ property ] === value) {
+            return value;
+          }
+        }
+      }
+
+      return undefined;
+    }
+
     function _copy( dist, src ) {
       if ( _isObject( dist ) && _isObject( src ) ) {
         for ( var property in src ) {
-          if ( src.hasOwnProperty( property ) ) {
-
-            dist[ property ] = src[ property ];
-
-          }
+          if ( !src.hasOwnProperty( property ) ) continue;
+          dist[ property ] = src[ property ];
         }
       }
     }
@@ -96,14 +129,10 @@
     *Does the property search, returns true if the object has the property sent
     */
     function _hasDeepProperty( arg, property ){
-      if ( _isString( property ) ) {
-        if ( _isObject( arg ) ) {
-          for ( var ownership in arg ) {
-            if ( ownership === property ) {
-
-              return true;
-
-            }
+      if ( _isString( property ) && _isObject( arg ) ) {
+        for ( var ownership in arg ) {
+          if ( ownership === property ) {
+            return true;
           }
         }
       }
@@ -122,8 +151,10 @@
       isEmpty: _isEmpty,
       isNotEmpty: _isNotEmpty,
       isEqual: _isEqual,
+      findValue: _findValue,
       copy: _copy,
-      hasDeepProperty: _hasDeepProperty
+      hasDeepProperty: _hasDeepProperty,
+      hasEqual: _hasEqual
     };
   })();
 
